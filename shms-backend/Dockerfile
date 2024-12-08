@@ -1,18 +1,14 @@
-#
-# Build stage
-#
-FROM eclipse-temurin:23.0.1_11-jdk AS build
-ENV HOME=/usr/app
-RUN mkdir -p $HOME
-WORKDIR $HOME
-COPY . $HOME
-RUN --mount=type=cache,target=/root/.m2 ./mvnw -f $HOME/pom.xml clean package
-
-#
-# Package stage
-#
-FROM eclipse-temurin:23.0.1_11-jdk
-ARG JAR_FILE=/usr/app/target/*.jar
-COPY --from=build $JAR_FILE /usr/app/shms.jar
+FROM eclipse-temurin:23.0.1_11-jdk AS builder
+RUN addgroup shmsgroup; adduser  --ingroup shmsgroup --disabled-password shms
+USER shms
+WORKDIR /usr/app
+COPY .mvn/ .mvn
+COPY mvnw pom.xml ./
+RUN ./mvnw dependency:go-offline
+COPY ./src ./src
+RUN ./mvnw clean install
+ 
+FROM eclipse-temurin:23.0.1_11-jre
+COPY --from=builder /usr/app/target/*.jar /usr/app/*.jar
 EXPOSE 8080
-ENTRYPOINT ["java","-jar","/usr/app/shms.jar"]
+ENTRYPOINT ["java", "-jar", "/usr/app/*.jar" ]
