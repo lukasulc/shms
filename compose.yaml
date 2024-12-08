@@ -1,0 +1,27 @@
+services:
+    backend:
+      build: ./shms-backend
+      ports:
+        - "8080:8080"
+      environment:
+        - SPRING_DATASOURCE_URL=jdbc:mysql://mysql:3306/shmsdatabase
+        - SPRING_DATASOURCE_USERNAME=shmsuser
+        - SPRING_DATASOURCE_PASSWORD=SHMSuserhasverystrongpassword
+      depends_on:
+        mysql:
+          condition: service_healthy
+    mysql:
+        container_name: 'shms-mysql'
+        image: 'mysql:latest'
+        environment:
+          - 'MYSQL_DATABASE=shmsdatabase'
+          - 'MYSQL_PASSWORD=SHMSuserhasverystrongpassword'
+          - 'MYSQL_ROOT_PASSWORD=SHMShastheunbreakablepassword'
+          - 'MYSQL_USER=shmsuser'
+        ports:
+          - '3306:3306'
+        healthcheck:
+          test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+          interval: 10s
+          timeout: 5s
+          retries: 5
