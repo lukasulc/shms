@@ -1,25 +1,25 @@
 package com.suprabit.shms.model;
 
-import jakarta.annotation.Nonnull;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Inheritance;
 import jakarta.persistence.InheritanceType;
+import jakarta.validation.constraints.NotBlank;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
 public class Device {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
 
-    @Nonnull
+    @NotBlank
     private String name;
 
-    public Device(Long id, String name) {
+    public Device(long id, String name) {
 	super();
 	this.id = id;
 	this.name = name;
@@ -28,11 +28,11 @@ public class Device {
     public Device() {
     }
 
-    public Long getId() {
+    public long getId() {
 	return id;
     }
 
-    public void setId(Long id) {
+    public void setId(long id) {
 	this.id = id;
     }
 

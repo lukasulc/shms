@@ -1,10 +1,10 @@
 package com.suprabit.shms.model;
 
-import jakarta.annotation.Nonnull;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "thermostat_device")
@@ -14,14 +14,13 @@ public class Thermostat extends Device {
 	HEATING, COOLING, OFF
     }
 
-    @Nonnull
-    private Double temperature = 23.5;
+    @NotNull(message = "temperature has to be present")
+    private double temperature = 23.5;
 
-    @Nonnull
     @Enumerated(EnumType.STRING)
     private ThermostatMode mode = ThermostatMode.OFF;
 
-    public Thermostat(Long id, String name, Double temperature, ThermostatMode mode) {
+    public Thermostat(long id, String name, double temperature, ThermostatMode mode) {
 	super(id, name);
 	this.temperature = temperature;
 	this.mode = mode;
@@ -30,11 +29,11 @@ public class Thermostat extends Device {
     public Thermostat() {
     }
 
-    public Double getTemperature() {
+    public double getTemperature() {
 	return temperature;
     }
 
-    public void setTemperature(Double temperature) {
+    public void setTemperature(double temperature) {
 	this.temperature = temperature;
     }
 

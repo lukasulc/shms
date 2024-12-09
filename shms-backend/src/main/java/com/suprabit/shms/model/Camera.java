@@ -1,22 +1,20 @@
 package com.suprabit.shms.model;
 
-import com.suprabit.shms.model.device.actions.BooleanState;
-
-import jakarta.annotation.Nonnull;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "camera_device")
 public class Camera extends Device {
 
-    @Nonnull
-    private BooleanState state;
+    @NotNull(message = "state has to be present")
+    private boolean state;
 
-    @Nonnull
-    private Boolean recording;
+    @NotNull(message = "recording has to be present")
+    private boolean recording;
 
-    public Camera(Long id, String name, BooleanState state, Boolean recording) {
+    public Camera(long id, String name, boolean state, boolean recording) {
 	super(id, name);
 	this.state = state;
 	this.recording = recording;
@@ -25,19 +23,19 @@ public class Camera extends Device {
     public Camera() {
     }
 
-    public BooleanState getState() {
+    public boolean getState() {
 	return state;
     }
 
-    public void setState(BooleanState state) {
+    public void setState(boolean state) {
 	this.state = state;
     }
 
-    public Boolean getRecording() {
+    public boolean getRecording() {
 	return recording;
     }
 
-    public void setRecording(Boolean recording) {
+    public void setRecording(boolean recording) {
 	this.recording = recording;
     }
 
