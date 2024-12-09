@@ -1,12 +1,15 @@
 package com.suprabit.shms.model;
 
 import jakarta.annotation.Nonnull;
+import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.MappedSuperclass;
+import jakarta.persistence.Inheritance;
+import jakarta.persistence.InheritanceType;
 
-@MappedSuperclass
+@Entity
+@Inheritance(strategy = InheritanceType.JOINED)
 public class Device {
 
     @Id
@@ -16,13 +19,10 @@ public class Device {
     @Nonnull
     private String name;
 
-    private String type;
-
-    public Device(Long id, String name, String type) {
+    public Device(Long id, String name) {
 	super();
 	this.id = id;
 	this.name = name;
-	this.type = type;
     }
 
     public Device() {
@@ -42,14 +42,6 @@ public class Device {
 
     public void setName(String name) {
 	this.name = name;
-    }
-
-    public String getType() {
-	return type;
-    }
-
-    public void setType(String type) {
-	this.type = type;
     }
 
 }
