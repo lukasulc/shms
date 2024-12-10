@@ -1,6 +1,17 @@
 services:
+  frontend:
+    build: ./shms-frontend
+    container_name: angular-app
+    ports:
+      - "4200:80" # Map port 4200 on the host to port 80 in the container
+    volumes:
+      - /app/node_modules # Cache dependencies
+    restart: always
+    environment:
+      - STYLE=scss
   backend:
     build: ./shms-backend
+    container_name: "shms-spring-boot"
     ports:
       - "8080:8080"
     environment:
