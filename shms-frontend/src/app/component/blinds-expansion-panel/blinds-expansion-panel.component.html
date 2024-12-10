@@ -1,0 +1,20 @@
+@for (item of data; track $index) {
+<mat-accordion>
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title> {{ item.name }} </mat-panel-title>
+      <mat-panel-description>
+        State: <strong>{{ item.state ? "Active" : "Inactive" }}</strong> |
+        Position: <strong>{{ item.position }}</strong>
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+    <ng-container>
+      <label>Position</label>
+      <label>{{ item.position }}</label>
+    </ng-container>
+    <mat-slider discrete min="0" max="100" step="1" value="value">
+      <input matSliderThumb [(ngModel)]="item.position" #slider />
+    </mat-slider>
+  </mat-expansion-panel>
+</mat-accordion>
+}

@@ -1,0 +1,15 @@
+@for (item of data; track $index) {
+<mat-accordion>
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title> {{ item.name }} </mat-panel-title>
+      <mat-panel-description>
+        State: <strong>{{ item.state ? "Active" : "Inactive" }}</strong> |
+        Recording: <strong>{{ item.recording }}</strong>
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+    <mat-slide-toggle [checked]="item.state">State</mat-slide-toggle>
+    <mat-slide-toggle [checked]="item.recording">Recording</mat-slide-toggle>
+  </mat-expansion-panel>
+</mat-accordion>
+}

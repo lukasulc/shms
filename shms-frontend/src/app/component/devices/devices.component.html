@@ -1,4 +1,19 @@
 @for (device of config; track device.deviceType) {
 <h1>{{ device.deviceType }}</h1>
-<li>{{ device.data }}</li>
-}
+@if (device.deviceType === 'light') {
+<app-light-expansion-panel
+  [dataStream]="service.getAll(device.deviceType)"
+></app-light-expansion-panel>
+} @if (device.deviceType === 'thermostat') {
+<app-thermostat-expansion-panel
+  [dataStream]="service.getAll(device.deviceType)"
+></app-thermostat-expansion-panel>
+} @if (device.deviceType === 'camera') {
+<app-camera-expansion-panel
+  [dataStream]="service.getAll(device.deviceType)"
+></app-camera-expansion-panel>
+} @if (device.deviceType === 'blinds') {
+<app-blinds-expansion-panel
+  [dataStream]="service.getAll(device.deviceType)"
+></app-blinds-expansion-panel>
+} }

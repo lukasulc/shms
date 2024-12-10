@@ -1,0 +1,13 @@
+@for (item of data; track $index) {
+<mat-accordion>
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title> {{ item.name }} </mat-panel-title>
+      <mat-panel-description>
+        Temperature: <strong>{{ item.temperature }}</strong> | Mode:
+        <strong>{{ item.mode }}</strong>
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+  </mat-expansion-panel>
+</mat-accordion>
+}

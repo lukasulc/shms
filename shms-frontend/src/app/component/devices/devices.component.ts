@@ -1,10 +1,18 @@
 import { Component } from '@angular/core';
 import { DeviceService } from '../../service/device.service';
-import { AsyncPipe } from '@angular/common';
+import { BlindsExpansionPanelComponent } from '../blinds-expansion-panel/blinds-expansion-panel.component';
+import { LightExpansionPanelComponent } from '../light-expansion-panel/light-expansion-panel.component';
+import { CameraExpansionPanelComponent } from '../camera-expansion-panel/camera-expansion-panel.component';
+import { ThermostatExpansionPanelComponent } from '../thermostat-expansion-panel/thermostat-expansion-panel.component';
 
 @Component({
   selector: 'app-devices',
-  imports: [],
+  imports: [
+    BlindsExpansionPanelComponent,
+    LightExpansionPanelComponent,
+    CameraExpansionPanelComponent,
+    ThermostatExpansionPanelComponent,
+  ],
   templateUrl: './devices.component.html',
   styleUrl: './devices.component.scss',
 })
@@ -28,13 +36,7 @@ export class DevicesComponent {
     },
   ];
 
-  constructor(public service: DeviceService) {
-    for (const element of this.config) {
-      service.getAll(element.deviceType).subscribe((data) => {
-        element.data = data;
-      });
-    }
-  }
+  constructor(public service: DeviceService) {}
 }
 
 type DevicesConfig = {
