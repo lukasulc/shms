@@ -4,8 +4,11 @@
     <mat-expansion-panel-header>
       <mat-panel-title> {{ item.name }} </mat-panel-title>
       <mat-panel-description>
-        State: <strong>{{ item.state ? "On" : "Off" }}</strong> | Brightnes:
-        <strong>{{ item.brightnes }}</strong>
+        State: <strong>{{ item.state ? "On" : "Off" }}</strong>
+        @if (item.brightnes) {
+        <p>&nbsp;|&nbsp;</p>
+        Brightnes: <strong>{{ item.brightnes }}</strong>
+        }
       </mat-panel-description>
     </mat-expansion-panel-header>
     <mat-slide-toggle [checked]="item.state">State</mat-slide-toggle>

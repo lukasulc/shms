@@ -1,5 +1,5 @@
 @for (device of config; track device.deviceType) {
-<h1>{{ device.deviceType }}</h1>
+<h2>{{ device.deviceType.toLocaleUpperCase() }} DEVICES</h2>
 @if (device.deviceType === 'light') {
 <app-light-expansion-panel
   [dataStream]="service.getAll(device.deviceType)"
