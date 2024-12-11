@@ -80,7 +80,7 @@ Make sure the following are installed on your system:
 
    ```bash
    ./mvnw clean install
-   java -jar target/smart-home-system.jar
+   java -jar target/shms-0.0.1-SNAPSHOT.jar
    ```
 
 3. Verify the backend is running at [http://localhost:8080](http://localhost:8080).
