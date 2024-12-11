@@ -5,15 +5,22 @@
       <mat-panel-title> {{ item.name }} </mat-panel-title>
       <mat-panel-description>
         State: <strong>{{ item.state ? "Active" : "Inactive" }}</strong>
-        <p>&nbsp;|&nbsp;</p>
-        Position: <strong>{{ item.position }}</strong>
+        <p class="verticalLine">
+          Position: <strong>{{ item.position }}</strong>
+        </p>
       </mat-panel-description>
     </mat-expansion-panel-header>
-    <ng-container>
-      <label>Position</label>
-      <label>{{ item.position }}</label>
-    </ng-container>
-    <mat-slider discrete min="0" max="100" step="1" value="value">
+    <mat-slide-toggle [(ngModel)]="item.state" (change)="itemChanged(item)"
+      >Toggle state</mat-slide-toggle
+    >
+    <mat-slider
+      discrete
+      min="0"
+      max="100"
+      step="1"
+      value="value"
+      (change)="itemChanged(item)"
+    >
       <input matSliderThumb [(ngModel)]="item.position" #slider />
     </mat-slider>
   </mat-expansion-panel>

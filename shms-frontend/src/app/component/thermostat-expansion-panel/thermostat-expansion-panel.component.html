@@ -4,12 +4,35 @@
     <mat-expansion-panel-header>
       <mat-panel-title> {{ item.name }} </mat-panel-title>
       <mat-panel-description>
-        Temperature: <strong>{{ item.temperature }}</strong>
-        <p>&nbsp;|&nbsp;</p>
-        Mode:
-        <strong>{{ item.mode }}</strong>
+        Mode: <strong>{{ item.mode }}</strong>
+        <p class="verticalLine">
+          Temperature: <strong>{{ item.temperature }}</strong>
+        </p>
       </mat-panel-description>
     </mat-expansion-panel-header>
+    <mat-select
+      placeholder="Placeholder"
+      [(ngModel)]="item.mode"
+      name="mode"
+      (selectionChange)="itemChanged(item)"
+    >
+      <mat-option value="OFF"> Off </mat-option>
+      <mat-option value="HEATING"> Heating </mat-option>
+      <mat-option value="COOLING"> Cooling </mat-option>
+    </mat-select>
+    <div>
+      <mat-slider
+        discrete
+        min="14"
+        max="32"
+        step="0.5"
+        value="value"
+        matTooltip="Change the brightness with this slider"
+        (change)="itemChanged(item)"
+      >
+        <input matSliderThumb [(ngModel)]="item.temperature" #slider />
+      </mat-slider>
+    </div>
   </mat-expansion-panel>
 </mat-accordion>
 }

@@ -5,20 +5,27 @@
       <mat-panel-title> {{ item.name }} </mat-panel-title>
       <mat-panel-description>
         State: <strong>{{ item.state ? "On" : "Off" }}</strong>
-        @if (item.brightnes) {
-        <p>&nbsp;|&nbsp;</p>
-        Brightnes: <strong>{{ item.brightnes }}</strong>
-        }
+        <p class="verticalLine">
+          brightness: <strong>{{ item.brightness }}</strong>
+        </p>
       </mat-panel-description>
     </mat-expansion-panel-header>
-    <mat-slide-toggle [checked]="item.state">State</mat-slide-toggle>
-    <ng-container>
-      <label>Position</label>
-      <label>{{ item.brightnes }}</label>
-    </ng-container>
-    <mat-slider discrete min="0" max="100" step="1" value="value">
-      <input matSliderThumb [(ngModel)]="item.brightnes" #slider />
-    </mat-slider>
+    <mat-slide-toggle [(ngModel)]="item.state" (change)="itemChanged(item)"
+      >Toggle state</mat-slide-toggle
+    >
+    <div>
+      <mat-slider
+        discrete
+        min="0"
+        max="100"
+        step="1"
+        value="value"
+        matTooltip="Change the brightness with this slider"
+        (change)="itemChanged(item)"
+      >
+        <input matSliderThumb [(ngModel)]="item.brightness" #slider />
+      </mat-slider>
+    </div>
   </mat-expansion-panel>
 </mat-accordion>
 }

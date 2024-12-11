@@ -3,17 +3,21 @@
 @if (device.deviceType === 'light') {
 <app-light-expansion-panel
   [dataStream]="service.getAll(device.deviceType)"
+  (itemChangedEvent)="service.update(device.deviceType, $event).subscribe()"
 ></app-light-expansion-panel>
 } @if (device.deviceType === 'thermostat') {
 <app-thermostat-expansion-panel
   [dataStream]="service.getAll(device.deviceType)"
+  (itemChangedEvent)="service.update(device.deviceType, $event).subscribe()"
 ></app-thermostat-expansion-panel>
 } @if (device.deviceType === 'camera') {
 <app-camera-expansion-panel
   [dataStream]="service.getAll(device.deviceType)"
+  (itemChangedEvent)="service.update(device.deviceType, $event).subscribe()"
 ></app-camera-expansion-panel>
 } @if (device.deviceType === 'blinds') {
 <app-blinds-expansion-panel
   [dataStream]="service.getAll(device.deviceType)"
+  (itemChangedEvent)="service.update(device.deviceType, $event).subscribe()"
 ></app-blinds-expansion-panel>
 } }

@@ -5,12 +5,22 @@
       <mat-panel-title> {{ item.name }} </mat-panel-title>
       <mat-panel-description>
         State: <strong>{{ item.state ? "Active" : "Inactive" }}</strong>
-        <p>&nbsp;|&nbsp;</p>
-        Recording: <strong>{{ item.recording }}</strong>
+        <p class="verticalLine">
+          Recording: <strong>{{ item.recording }}</strong>
+        </p>
+        <div class="verticalLine"></div>
       </mat-panel-description>
     </mat-expansion-panel-header>
-    <mat-slide-toggle [checked]="item.state">State</mat-slide-toggle>
-    <mat-slide-toggle [checked]="item.recording">Recording</mat-slide-toggle>
+    <div class="d-flex flex-column">
+      <mat-slide-toggle [(ngModel)]="item.state" (change)="itemChanged(item)"
+        >Toggle state</mat-slide-toggle
+      >
+      <mat-slide-toggle
+        [(ngModel)]="item.recording"
+        (change)="itemChanged(item)"
+        >Toggle recording</mat-slide-toggle
+      >
+    </div>
   </mat-expansion-panel>
 </mat-accordion>
 }
