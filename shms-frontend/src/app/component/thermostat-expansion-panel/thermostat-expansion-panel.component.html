@@ -1,38 +1,49 @@
-@for (item of data; track $index) {
-<mat-accordion>
-  <mat-expansion-panel>
-    <mat-expansion-panel-header>
-      <mat-panel-title> {{ item.name }} </mat-panel-title>
-      <mat-panel-description>
-        Mode: <strong>{{ item.mode }}</strong>
-        <p class="verticalLine">
-          Temperature: <strong>{{ item.temperature }}</strong>
-        </p>
-      </mat-panel-description>
-    </mat-expansion-panel-header>
-    <mat-select
-      placeholder="Placeholder"
-      [(ngModel)]="item.mode"
-      name="mode"
-      (selectionChange)="itemChanged(item)"
-    >
-      <mat-option value="OFF"> Off </mat-option>
-      <mat-option value="HEATING"> Heating </mat-option>
-      <mat-option value="COOLING"> Cooling </mat-option>
-    </mat-select>
-    <div>
-      <mat-slider
-        discrete
-        min="14"
-        max="32"
-        step="0.5"
-        value="value"
-        matTooltip="Change the brightness with this slider"
-        (change)="itemChanged(item)"
-      >
-        <input matSliderThumb [(ngModel)]="item.temperature" #slider />
-      </mat-slider>
-    </div>
-  </mat-expansion-panel>
-</mat-accordion>
+@if (data === undefined) {
+  <mat-spinner></mat-spinner>
+} @else {
+  @for (item of data; track $index) {
+    <mat-accordion>
+      <mat-expansion-panel expanded>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            {{ item.name }}
+          </mat-panel-title>
+          <mat-panel-description>
+            Mode: <strong>{{ item.mode }}</strong>
+            <p class="verticalLine">
+              Temperature: <strong>{{ item.temperature }}</strong>
+            </p>
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+        <div class="d-flex justify-between">
+          <div class="w-75">
+            <mat-select
+              placeholder="Placeholder"
+              [(ngModel)]="item.mode"
+              name="mode"
+              (selectionChange)="itemChanged(item)"
+            >
+              <mat-option value="OFF"> Off </mat-option>
+              <mat-option value="HEATING"> Heating </mat-option>
+              <mat-option value="COOLING"> Cooling </mat-option>
+            </mat-select>
+            <mat-slider
+              discrete
+              min="14"
+              max="32"
+              step="0.5"
+              value="value"
+              matTooltip="Change the brightness with this slider"
+              (change)="itemChanged(item)"
+            >
+              <input matSliderThumb [(ngModel)]="item.temperature" #slider />
+            </mat-slider>
+          </div>
+          <button mat-fab (click)="itemDelete(item.id!)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </div>
+      </mat-expansion-panel>
+    </mat-accordion>
+  }
 }

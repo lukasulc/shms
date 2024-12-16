@@ -1,33 +1,81 @@
-import { HttpClient, HttpRequest } from '@angular/common/http';
-import { inject, Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { inject, Injectable, Type } from '@angular/core';
+import { BlindsExpansionPanelComponent } from '../component/blinds-expansion-panel/blinds-expansion-panel.component';
+import { CameraExpansionPanelComponent } from '../component/camera-expansion-panel/camera-expansion-panel.component';
+import { LightExpansionPanelComponent } from '../component/light-expansion-panel/light-expansion-panel.component';
+import { ThermostatExpansionPanelComponent } from '../component/thermostat-expansion-panel/thermostat-expansion-panel.component';
+import { Blinds } from '../model/blinds';
+import { Camera } from '../model/camera';
+import { Device } from '../model/device';
+import { Light } from '../model/light';
+import { Thermostat } from '../model/thremostat';
+import { ApiService } from './data.service';
 
 @Injectable({
   providedIn: 'root',
 })
-export class DeviceService {
+export class DeviceService<T extends Device> {
   baseUrl = 'http://localhost:8080';
-  httpClient = inject(HttpClient);
+  apiService = inject(ApiService);
+
+  config: DevicesConfig[] = [
+    {
+      deviceType: 'light',
+      component: LightExpansionPanelComponent,
+    },
+    {
+      deviceType: 'blinds',
+      component: BlindsExpansionPanelComponent,
+    },
+    {
+      deviceType: 'thermostat',
+      component: ThermostatExpansionPanelComponent,
+    },
+    {
+      deviceType: 'camera',
+      component: CameraExpansionPanelComponent,
+    },
+  ];
+
   constructor() {}
 
-  public getAll<T>(deviceType: string) {
-    return this.httpClient.get<T[]>(`${this.baseUrl}/${deviceType}/all`);
+  get deviceConfig() {
+    return this.config;
   }
 
-  public getById<T>(deviceType: string, id: number) {
-    return this.httpClient.get<T>(`${this.baseUrl}/${deviceType}/${id}`);
+  public getAll(deviceType: string) {
+    return this.apiService.getAll<T>(deviceType);
   }
 
-  public add<T>(deviceType: string, data: T) {
-    return this.httpClient.post<T>(`${this.baseUrl}/${deviceType}/add`, data);
+  public getById(deviceType: string, id: number) {
+    return this.apiService.getById<T>(deviceType, id);
   }
 
-  public update<T>(deviceType: string, data: T) {
-    return this.httpClient.put<T>(`${this.baseUrl}/${deviceType}/update`, data);
+  public add(deviceType: string, data: T) {
+    return this.apiService.add<T>(deviceType, data);
   }
 
-  public delete<T>(deviceType: string, id: number) {
-    return this.httpClient.delete<T>(
-      `${this.baseUrl}/${deviceType}/delete/${id}`
-    );
+  public update(deviceType: string, data: T) {
+    return this.apiService.update<T>(deviceType, data);
+  }
+
+  public patch(deviceType: string, data: T) {
+    return this.apiService.patch<T>(deviceType, data);
+  }
+
+  public delete(deviceType: string, id: number) {
+    return this.apiService.delete<T>(deviceType, id);
   }
 }
+
+export type DevicesConfig<CT = any> = {
+  deviceType: string;
+  component: Type<CT>;
+};
+
+type DeviceMapping = {
+  light: Light;
+  blinds: Blinds;
+  thermostat: Thermostat;
+  camera: Camera;
+};

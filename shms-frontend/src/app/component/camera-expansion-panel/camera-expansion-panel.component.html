@@ -1,26 +1,39 @@
-@for (item of data; track $index) {
-<mat-accordion>
-  <mat-expansion-panel>
-    <mat-expansion-panel-header>
-      <mat-panel-title> {{ item.name }} </mat-panel-title>
-      <mat-panel-description>
-        State: <strong>{{ item.state ? "Active" : "Inactive" }}</strong>
-        <p class="verticalLine">
-          Recording: <strong>{{ item.recording }}</strong>
-        </p>
-        <div class="verticalLine"></div>
-      </mat-panel-description>
-    </mat-expansion-panel-header>
-    <div class="d-flex flex-column">
-      <mat-slide-toggle [(ngModel)]="item.state" (change)="itemChanged(item)"
-        >Toggle state</mat-slide-toggle
-      >
-      <mat-slide-toggle
-        [(ngModel)]="item.recording"
-        (change)="itemChanged(item)"
-        >Toggle recording</mat-slide-toggle
-      >
-    </div>
-  </mat-expansion-panel>
-</mat-accordion>
+@if (data === undefined) {
+  <mat-spinner></mat-spinner>
+} @else {
+  @for (item of data; track $index) {
+    <mat-accordion>
+      <mat-expansion-panel expanded>
+        <mat-expansion-panel-header>
+          <mat-panel-title> {{ item.name }} </mat-panel-title>
+          <mat-panel-description>
+            State: <strong>{{ item.state ? "Active" : "Inactive" }}</strong>
+            <p class="verticalLine">
+              Recording: <strong>{{ item.recording }}</strong>
+            </p>
+            <div class="verticalLine"></div>
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+        <div class="d-flex justify-between">
+          <div class="w-75">
+            <div class="d-flex flex-column">
+              <mat-slide-toggle
+                [(ngModel)]="item.state"
+                (change)="itemChanged(item)"
+                >Toggle state</mat-slide-toggle
+              >
+              <mat-slide-toggle
+                [(ngModel)]="item.recording"
+                (change)="itemChanged(item)"
+                >Toggle recording</mat-slide-toggle
+              >
+            </div>
+          </div>
+          <button mat-fab (click)="itemDelete(item.id!)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </div>
+      </mat-expansion-panel>
+    </mat-accordion>
+  }
 }

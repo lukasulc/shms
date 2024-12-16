@@ -1,23 +1,18 @@
-@for (device of config; track device.deviceType) {
-<h2>{{ device.deviceType.toLocaleUpperCase() }} DEVICES</h2>
-@if (device.deviceType === 'light') {
-<app-light-expansion-panel
-  [dataStream]="service.getAll(device.deviceType)"
-  (itemChangedEvent)="service.update(device.deviceType, $event).subscribe()"
-></app-light-expansion-panel>
-} @if (device.deviceType === 'thermostat') {
-<app-thermostat-expansion-panel
-  [dataStream]="service.getAll(device.deviceType)"
-  (itemChangedEvent)="service.update(device.deviceType, $event).subscribe()"
-></app-thermostat-expansion-panel>
-} @if (device.deviceType === 'camera') {
-<app-camera-expansion-panel
-  [dataStream]="service.getAll(device.deviceType)"
-  (itemChangedEvent)="service.update(device.deviceType, $event).subscribe()"
-></app-camera-expansion-panel>
-} @if (device.deviceType === 'blinds') {
-<app-blinds-expansion-panel
-  [dataStream]="service.getAll(device.deviceType)"
-  (itemChangedEvent)="service.update(device.deviceType, $event).subscribe()"
-></app-blinds-expansion-panel>
-} }
+@for (device of service.config; track device.deviceType) {
+  <div class="d-flex align-center">
+    <h2>{{ device.deviceType.toLocaleUpperCase() }} DEVICES</h2>
+    <button
+      mat-icon-button
+      class="category-button"
+      (click)="openDialog(device.deviceType)"
+    >
+      <mat-icon class="m-1">add_circle</mat-icon>
+    </button>
+  </div>
+  <ng-container
+    *ngComponentOutlet="
+      device.component;
+      inputs: { deviceType: device.deviceType, newItem: newData }
+    "
+  />
+}

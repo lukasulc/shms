@@ -1,0 +1,13 @@
+<mat-dialog-content>
+  <p>What's the device name?</p>
+  <mat-form-field>
+    <mat-label>Device name</mat-label>
+    <input matInput [(ngModel)]="deviceName" />
+  </mat-form-field>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button [mat-dialog-close]="undefined">Cancel</button>
+  <button mat-button [mat-dialog-close]="deviceName" cdkFocusInitial>
+    Create
+  </button>
+</mat-dialog-actions>

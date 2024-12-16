@@ -1,11 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
 
-html,
 body {
-  height: 100%;
-}
-body {
-  margin: 8px;
+  padding: 8px;
   font-family: Roboto, "Helvetica Neue", sans-serif;
   background-color: azure;
 }
@@ -16,6 +12,26 @@ body {
 
 .flex-column {
   flex-direction: column;
+}
+
+.align-center {
+  align-items: center;
+}
+
+.justify-between {
+  justify-content: space-between;
+}
+
+.m-1 {
+  margin: 4px;
+}
+
+.w-75 {
+  width: 75%;
+}
+
+.w-100 {
+  width: 100%;
 }
 
 mat-slide-toggle {

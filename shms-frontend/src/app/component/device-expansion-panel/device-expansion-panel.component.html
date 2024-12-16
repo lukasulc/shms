@@ -1,0 +1,19 @@
+<!-- @for (item of devices | async; track $index) {
+<mat-accordion>
+  <mat-expansion-panel expanded>
+    <mat-expansion-panel-header>
+      <mat-panel-title> {{ item.name }} </mat-panel-title>
+      <mat-panel-description>
+        <ng-template
+          [ngTemplateOutlet]="templateRefDescription"
+          [ngTemplateOutletContext]="{ $implicit: item }"
+        ></ng-template>
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+    <ng-template
+      [ngTemplateOutlet]="templateRefBody"
+      [ngTemplateOutletContext]="{ $implicit: item }"
+    ></ng-template>
+  </mat-expansion-panel>
+</mat-accordion>
+} -->

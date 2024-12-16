@@ -1,3 +1,11 @@
 mat-slider {
   width: 100%;
 }
+
+mat-select {
+  padding: 5px;
+  box-shadow:
+    0 5px 5px gainsboro,
+    -2px 0 2px gainsboro;
+  max-width: 300px;
+}

@@ -1,6 +1,6 @@
-import { Device } from "./device";
+import { Device } from './device';
 
-export class Camera extends Device{
+export class Camera extends Device {
   state: boolean | undefined;
-  recording: boolean | undefined
+  recording: boolean | undefined;
 }

@@ -1,45 +1,42 @@
-import { Component } from '@angular/core';
+import { NgComponentOutlet } from '@angular/common';
+import { Component, inject } from '@angular/core';
+import { MatButtonModule } from '@angular/material/button';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { MatIconModule } from '@angular/material/icon';
 import { DeviceService } from '../../service/device.service';
-import { BlindsExpansionPanelComponent } from '../blinds-expansion-panel/blinds-expansion-panel.component';
-import { LightExpansionPanelComponent } from '../light-expansion-panel/light-expansion-panel.component';
-import { CameraExpansionPanelComponent } from '../camera-expansion-panel/camera-expansion-panel.component';
-import { ThermostatExpansionPanelComponent } from '../thermostat-expansion-panel/thermostat-expansion-panel.component';
+import { AddDeviceComponent } from '../add-device/add-device.component';
+import { Device } from '../../model/device';
+import { BehaviorSubject, Subject } from 'rxjs';
 
 @Component({
   selector: 'app-devices',
-  imports: [
-    BlindsExpansionPanelComponent,
-    LightExpansionPanelComponent,
-    CameraExpansionPanelComponent,
-    ThermostatExpansionPanelComponent,
-  ],
+  imports: [NgComponentOutlet, MatIconModule, MatButtonModule, MatDialogModule],
   templateUrl: './devices.component.html',
   styleUrl: './devices.component.scss',
 })
 export class DevicesComponent {
-  config: DevicesConfig[] = [
-    {
-      deviceType: 'light',
-      data: undefined,
-    },
-    {
-      deviceType: 'thermostat',
-      data: undefined,
-    },
-    {
-      deviceType: 'camera',
-      data: undefined,
-    },
-    {
-      deviceType: 'blinds',
-      data: undefined,
-    },
-  ];
+  service = inject(DeviceService);
+  readonly dialog = inject(MatDialog);
+  readonly newData = new Subject<NewItemDTO>();
 
-  constructor(public service: DeviceService) {}
+  constructor() {}
+
+  openDialog(type: string) {
+    const dialogRef = this.dialog.open<AddDeviceComponent, undefined, string>(
+      AddDeviceComponent,
+    );
+
+    dialogRef.beforeClosed().subscribe((deviceName) => {
+      console.log(deviceName);
+
+      if (deviceName !== undefined) {
+        this.newData.next({ deviceType: type, deviceName: deviceName });
+      }
+    });
+  }
 }
 
-type DevicesConfig = {
+export type NewItemDTO = {
   deviceType: string;
-  data: any | undefined;
+  deviceName: string;
 };

@@ -1,40 +1,32 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatIconModule } from '@angular/material/icon';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatSliderModule } from '@angular/material/slider';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { Observable } from 'rxjs';
 import { Camera } from '../../model/camera';
+import { DeviceExpansionPanelComponent } from '../device-expansion-panel/device-expansion-panel.component';
 
 @Component({
   selector: 'app-camera-expansion-panel',
   imports: [
     FormsModule,
     MatExpansionModule,
+    MatProgressSpinnerModule,
     MatSlideToggleModule,
     MatSliderModule,
     MatTooltipModule,
     MatIconModule,
+    MatButtonModule,
   ],
   templateUrl: './camera-expansion-panel.component.html',
   styleUrl: './camera-expansion-panel.component.scss',
 })
-export class CameraExpansionPanelComponent implements OnInit {
-  @Input()
-  dataStream: Observable<Camera[]> | undefined;
-  data: Camera[] | undefined;
-
-  @Output()
-  itemChangedEvent = new EventEmitter<Camera>();
-
-  ngOnInit(): void {
-    this.dataStream?.subscribe((data) => (this.data = data));
-  }
-
-  // (change) event is called only when the user is done adjusting the slider
-  itemChanged(item: Camera) {
-    this.itemChangedEvent.emit(item);
+export class CameraExpansionPanelComponent extends DeviceExpansionPanelComponent<Camera> {
+  override creationCondition(type: string) {
+    return type === 'camera';
   }
 }
